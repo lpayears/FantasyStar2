@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sjm.dao.ArtifactsInformationMapper">
+    <resultMap id="BaseResultMap" type="com.sjm.bean.ArtifactsInformation">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="bim_id" jdbcType="INTEGER" property="bimId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="descri" jdbcType="VARCHAR" property="descri"/>
+        <result column="pos" jdbcType="VARCHAR" property="pos"/>
+        <result column="size" jdbcType="VARCHAR" property="size"/>
+        <result column="func" jdbcType="VARCHAR" property="func"/>
+        <result column="border" jdbcType="VARCHAR" property="border"/>
+        <result column="material" jdbcType="VARCHAR" property="material"/>
+        <result column="producer" jdbcType="VARCHAR" property="producer"/>
+        <result column="heat_transfer_coefficient" jdbcType="VARCHAR" property="heatTransferCoefficient"/>
+        <result column="absorption_rate" jdbcType="VARCHAR" property="absorptionRate"/>
+        <result column="thermal_mass" jdbcType="VARCHAR" property="thermalMass"/>
+        <result column="thermal_resistance" jdbcType="VARCHAR" property="thermalResistance"/>
+        <result column="optical_transmission_rate" jdbcType="VARCHAR" property="opticalTransmissionRate"/>
+        <result column="solar_thermal_efficiency" jdbcType="VARCHAR" property="solarThermalEfficiency"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, bim_id, name, descri, pos, size, func, border, material, producer, heat_transfer_coefficient,
+        absorption_rate, thermal_mass, thermal_resistance, optical_transmission_rate, solar_thermal_efficiency
+    </sql>
+    <select id="selectByExample" parameterType="com.sjm.bean.ArtifactsInformationExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from artifacts_information
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from artifacts_information
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from artifacts_information
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.sjm.bean.ArtifactsInformationExample">
+        delete from artifacts_information
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.sjm.bean.ArtifactsInformation">
+        insert into artifacts_information (id, bim_id, name,
+        descri, pos, size,
+        func, border, material,
+        producer, heat_transfer_coefficient, absorption_rate,
+        thermal_mass, thermal_resistance, optical_transmission_rate,
+        solar_thermal_efficiency)
+        values (#{id,jdbcType=INTEGER}, #{bimId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+        #{descri,jdbcType=VARCHAR}, #{pos,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR},
+        #{func,jdbcType=VARCHAR}, #{border,jdbcType=VARCHAR}, #{material,jdbcType=VARCHAR},
+        #{producer,jdbcType=VARCHAR}, #{heatTransferCoefficient,jdbcType=VARCHAR}, #{absorptionRate,jdbcType=VARCHAR},
+        #{thermalMass,jdbcType=VARCHAR}, #{thermalResistance,jdbcType=VARCHAR},
+        #{opticalTransmissionRate,jdbcType=VARCHAR},
+        #{solarThermalEfficiency,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.sjm.bean.ArtifactsInformation">
+        insert into artifacts_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="bimId != null">
+                bim_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="descri != null">
+                descri,
+            </if>
+            <if test="pos != null">
+                pos,
+            </if>
+            <if test="size != null">
+                size,
+            </if>
+            <if test="func != null">
+                func,
+            </if>
+            <if test="border != null">
+                border,
+            </if>
+            <if test="material != null">
+                material,
+            </if>
+            <if test="producer != null">
+                producer,
+            </if>
+            <if test="heatTransferCoefficient != null">
+                heat_transfer_coefficient,
+            </if>
+            <if test="absorptionRate != null">
+                absorption_rate,
+            </if>
+            <if test="thermalMass != null">
+                thermal_mass,
+            </if>
+            <if test="thermalResistance != null">
+                thermal_resistance,
+            </if>
+            <if test="opticalTransmissionRate != null">
+                optical_transmission_rate,
+            </if>
+            <if test="solarThermalEfficiency != null">
+                solar_thermal_efficiency,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="bimId != null">
+                #{bimId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="descri != null">
+                #{descri,jdbcType=VARCHAR},
+            </if>
+            <if test="pos != null">
+                #{pos,jdbcType=VARCHAR},
+            </if>
+            <if test="size != null">
+                #{size,jdbcType=VARCHAR},
+            </if>
+            <if test="func != null">
+                #{func,jdbcType=VARCHAR},
+            </if>
+            <if test="border != null">
+                #{border,jdbcType=VARCHAR},
+            </if>
+            <if test="material != null">
+                #{material,jdbcType=VARCHAR},
+            </if>
+            <if test="producer != null">
+                #{producer,jdbcType=VARCHAR},
+            </if>
+            <if test="heatTransferCoefficient != null">
+                #{heatTransferCoefficient,jdbcType=VARCHAR},
+            </if>
+            <if test="absorptionRate != null">
+                #{absorptionRate,jdbcType=VARCHAR},
+            </if>
+            <if test="thermalMass != null">
+                #{thermalMass,jdbcType=VARCHAR},
+            </if>
+            <if test="thermalResistance != null">
+                #{thermalResistance,jdbcType=VARCHAR},
+            </if>
+            <if test="opticalTransmissionRate != null">
+                #{opticalTransmissionRate,jdbcType=VARCHAR},
+            </if>
+            <if test="solarThermalEfficiency != null">
+                #{solarThermalEfficiency,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.sjm.bean.ArtifactsInformationExample" resultType="java.lang.Long">
+        select count(*) from artifacts_information
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update artifacts_information
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.bimId != null">
+                bim_id = #{record.bimId,jdbcType=INTEGER},
+            </if>
+            <if test="record.name != null">
+                name = #{record.name,jdbcType=VARCHAR},
+            </if>
+            <if test="record.descri != null">
+                descri = #{record.descri,jdbcType=VARCHAR},
+            </if>
+            <if test="record.pos != null">
+                pos = #{record.pos,jdbcType=VARCHAR},
+            </if>
+            <if test="record.size != null">
+                size = #{record.size,jdbcType=VARCHAR},
+            </if>
+            <if test="record.func != null">
+                func = #{record.func,jdbcType=VARCHAR},
+            </if>
+            <if test="record.border != null">
+                border = #{record.border,jdbcType=VARCHAR},
+            </if>
+            <if test="record.material != null">
+                material = #{record.material,jdbcType=VARCHAR},
+            </if>
+            <if test="record.producer != null">
+                producer = #{record.producer,jdbcType=VARCHAR},
+            </if>
+            <if test="record.heatTransferCoefficient != null">
+                heat_transfer_coefficient = #{record.heatTransferCoefficient,jdbcType=VARCHAR},
+            </if>
+            <if test="record.absorptionRate != null">
+                absorption_rate = #{record.absorptionRate,jdbcType=VARCHAR},
+            </if>
+            <if test="record.thermalMass != null">
+                thermal_mass = #{record.thermalMass,jdbcType=VARCHAR},
+            </if>
+            <if test="record.thermalResistance != null">
+                thermal_resistance = #{record.thermalResistance,jdbcType=VARCHAR},
+            </if>
+            <if test="record.opticalTransmissionRate != null">
+                optical_transmission_rate = #{record.opticalTransmissionRate,jdbcType=VARCHAR},
+            </if>
+            <if test="record.solarThermalEfficiency != null">
+                solar_thermal_efficiency = #{record.solarThermalEfficiency,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update artifacts_information
+        set id = #{record.id,jdbcType=INTEGER},
+        bim_id = #{record.bimId,jdbcType=INTEGER},
+        name = #{record.name,jdbcType=VARCHAR},
+        descri = #{record.descri,jdbcType=VARCHAR},
+        pos = #{record.pos,jdbcType=VARCHAR},
+        size = #{record.size,jdbcType=VARCHAR},
+        func = #{record.func,jdbcType=VARCHAR},
+        border = #{record.border,jdbcType=VARCHAR},
+        material = #{record.material,jdbcType=VARCHAR},
+        producer = #{record.producer,jdbcType=VARCHAR},
+        heat_transfer_coefficient = #{record.heatTransferCoefficient,jdbcType=VARCHAR},
+        absorption_rate = #{record.absorptionRate,jdbcType=VARCHAR},
+        thermal_mass = #{record.thermalMass,jdbcType=VARCHAR},
+        thermal_resistance = #{record.thermalResistance,jdbcType=VARCHAR},
+        optical_transmission_rate = #{record.opticalTransmissionRate,jdbcType=VARCHAR},
+        solar_thermal_efficiency = #{record.solarThermalEfficiency,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.sjm.bean.ArtifactsInformation">
+        update artifacts_information
+        <set>
+            <if test="bimId != null">
+                bim_id = #{bimId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="descri != null">
+                descri = #{descri,jdbcType=VARCHAR},
+            </if>
+            <if test="pos != null">
+                pos = #{pos,jdbcType=VARCHAR},
+            </if>
+            <if test="size != null">
+                size = #{size,jdbcType=VARCHAR},
+            </if>
+            <if test="func != null">
+                func = #{func,jdbcType=VARCHAR},
+            </if>
+            <if test="border != null">
+                border = #{border,jdbcType=VARCHAR},
+            </if>
+            <if test="material != null">
+                material = #{material,jdbcType=VARCHAR},
+            </if>
+            <if test="producer != null">
+                producer = #{producer,jdbcType=VARCHAR},
+            </if>
+            <if test="heatTransferCoefficient != null">
+                heat_transfer_coefficient = #{heatTransferCoefficient,jdbcType=VARCHAR},
+            </if>
+            <if test="absorptionRate != null">
+                absorption_rate = #{absorptionRate,jdbcType=VARCHAR},
+            </if>
+            <if test="thermalMass != null">
+                thermal_mass = #{thermalMass,jdbcType=VARCHAR},
+            </if>
+            <if test="thermalResistance != null">
+                thermal_resistance = #{thermalResistance,jdbcType=VARCHAR},
+            </if>
+            <if test="opticalTransmissionRate != null">
+                optical_transmission_rate = #{opticalTransmissionRate,jdbcType=VARCHAR},
+            </if>
+            <if test="solarThermalEfficiency != null">
+                solar_thermal_efficiency = #{solarThermalEfficiency,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.sjm.bean.ArtifactsInformation">
+        update artifacts_information
+        set bim_id = #{bimId,jdbcType=INTEGER},
+        name = #{name,jdbcType=VARCHAR},
+        descri = #{descri,jdbcType=VARCHAR},
+        pos = #{pos,jdbcType=VARCHAR},
+        size = #{size,jdbcType=VARCHAR},
+        func = #{func,jdbcType=VARCHAR},
+        border = #{border,jdbcType=VARCHAR},
+        material = #{material,jdbcType=VARCHAR},
+        producer = #{producer,jdbcType=VARCHAR},
+        heat_transfer_coefficient = #{heatTransferCoefficient,jdbcType=VARCHAR},
+        absorption_rate = #{absorptionRate,jdbcType=VARCHAR},
+        thermal_mass = #{thermalMass,jdbcType=VARCHAR},
+        thermal_resistance = #{thermalResistance,jdbcType=VARCHAR},
+        optical_transmission_rate = #{opticalTransmissionRate,jdbcType=VARCHAR},
+        solar_thermal_efficiency = #{solarThermalEfficiency,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

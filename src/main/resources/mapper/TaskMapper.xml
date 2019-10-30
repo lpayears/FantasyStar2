@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sjm.dao.TaskMapper">
+    <resultMap id="BaseResultMap" type="com.sjm.bean.Task">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="task_status" jdbcType="CHAR" property="taskStatus"/>
+        <result column="admin_name" jdbcType="VARCHAR" property="adminName"/>
+        <result column="ou_name" jdbcType="VARCHAR" property="ouName"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="build_no" jdbcType="INTEGER" property="buildNo"/>
+        <result column="device" jdbcType="VARCHAR" property="device"/>
+        <result column="operation_type" jdbcType="VARCHAR" property="operationType"/>
+        <result column="layer_no" jdbcType="INTEGER" property="layerNo"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, create_time, task_status, admin_name, ou_name, start_time, end_time, build_no,
+        device, operation_type, layer_no
+    </sql>
+    <select id="selectByExample" parameterType="com.sjm.bean.TaskExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from task
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from task
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from task
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.sjm.bean.TaskExample">
+        delete from task
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.sjm.bean.Task">
+        insert into task (id, create_time, task_status,
+        admin_name, ou_name, start_time,
+        end_time, build_no, device,
+        operation_type, layer_no)
+        values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{taskStatus,jdbcType=CHAR},
+        #{adminName,jdbcType=VARCHAR}, #{ouName,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP},
+        #{endTime,jdbcType=TIMESTAMP}, #{buildNo,jdbcType=INTEGER}, #{device,jdbcType=VARCHAR},
+        #{operationType,jdbcType=VARCHAR}, #{layerNo,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.sjm.bean.Task">
+        insert into task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="taskStatus != null">
+                task_status,
+            </if>
+            <if test="adminName != null">
+                admin_name,
+            </if>
+            <if test="ouName != null">
+                ou_name,
+            </if>
+            <if test="startTime != null">
+                start_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="buildNo != null">
+                build_no,
+            </if>
+            <if test="device != null">
+                device,
+            </if>
+            <if test="operationType != null">
+                operation_type,
+            </if>
+            <if test="layerNo != null">
+                layer_no,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="taskStatus != null">
+                #{taskStatus,jdbcType=CHAR},
+            </if>
+            <if test="adminName != null">
+                #{adminName,jdbcType=VARCHAR},
+            </if>
+            <if test="ouName != null">
+                #{ouName,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="buildNo != null">
+                #{buildNo,jdbcType=INTEGER},
+            </if>
+            <if test="device != null">
+                #{device,jdbcType=VARCHAR},
+            </if>
+            <if test="operationType != null">
+                #{operationType,jdbcType=VARCHAR},
+            </if>
+            <if test="layerNo != null">
+                #{layerNo,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.sjm.bean.TaskExample" resultType="java.lang.Long">
+        select count(*) from task
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update task
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.taskStatus != null">
+                task_status = #{record.taskStatus,jdbcType=CHAR},
+            </if>
+            <if test="record.adminName != null">
+                admin_name = #{record.adminName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ouName != null">
+                ou_name = #{record.ouName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.startTime != null">
+                start_time = #{record.startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.endTime != null">
+                end_time = #{record.endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.buildNo != null">
+                build_no = #{record.buildNo,jdbcType=INTEGER},
+            </if>
+            <if test="record.device != null">
+                device = #{record.device,jdbcType=VARCHAR},
+            </if>
+            <if test="record.operationType != null">
+                operation_type = #{record.operationType,jdbcType=VARCHAR},
+            </if>
+            <if test="record.layerNo != null">
+                layer_no = #{record.layerNo,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update task
+        set id = #{record.id,jdbcType=INTEGER},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        task_status = #{record.taskStatus,jdbcType=CHAR},
+        admin_name = #{record.adminName,jdbcType=VARCHAR},
+        ou_name = #{record.ouName,jdbcType=VARCHAR},
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+        build_no = #{record.buildNo,jdbcType=INTEGER},
+        device = #{record.device,jdbcType=VARCHAR},
+        operation_type = #{record.operationType,jdbcType=VARCHAR},
+        layer_no = #{record.layerNo,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.sjm.bean.Task">
+        update task
+        <set>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="taskStatus != null">
+                task_status = #{taskStatus,jdbcType=CHAR},
+            </if>
+            <if test="adminName != null">
+                admin_name = #{adminName,jdbcType=VARCHAR},
+            </if>
+            <if test="ouName != null">
+                ou_name = #{ouName,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="buildNo != null">
+                build_no = #{buildNo,jdbcType=INTEGER},
+            </if>
+            <if test="device != null">
+                device = #{device,jdbcType=VARCHAR},
+            </if>
+            <if test="operationType != null">
+                operation_type = #{operationType,jdbcType=VARCHAR},
+            </if>
+            <if test="layerNo != null">
+                layer_no = #{layerNo,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.sjm.bean.Task">
+        update task
+        set create_time = #{createTime,jdbcType=TIMESTAMP},
+        task_status = #{taskStatus,jdbcType=CHAR},
+        admin_name = #{adminName,jdbcType=VARCHAR},
+        ou_name = #{ouName,jdbcType=VARCHAR},
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+        build_no = #{buildNo,jdbcType=INTEGER},
+        device = #{device,jdbcType=VARCHAR},
+        operation_type = #{operationType,jdbcType=VARCHAR},
+        layer_no = #{layerNo,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

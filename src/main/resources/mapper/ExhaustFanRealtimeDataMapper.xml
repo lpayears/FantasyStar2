@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sjm.dao.ExhaustFanRealtimeDataMapper">
+    <resultMap id="BaseResultMap" type="com.sjm.bean.ExhaustFanRealtimeData">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="logic_id" jdbcType="INTEGER" property="logicId"/>
+        <result column="air_volume" jdbcType="VARCHAR" property="airVolume"/>
+        <result column="direction" jdbcType="VARCHAR" property="direction"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, logic_id, air_volume, direction
+    </sql>
+    <select id="selectByExample" parameterType="com.sjm.bean.ExhaustFanRealtimeDataExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from exhaust_fan_realtime_data
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from exhaust_fan_realtime_data
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from exhaust_fan_realtime_data
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.sjm.bean.ExhaustFanRealtimeDataExample">
+        delete from exhaust_fan_realtime_data
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.sjm.bean.ExhaustFanRealtimeData">
+        insert into exhaust_fan_realtime_data (id, logic_id, air_volume,
+        direction)
+        values (#{id,jdbcType=INTEGER}, #{logicId,jdbcType=INTEGER}, #{airVolume,jdbcType=VARCHAR},
+        #{direction,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.sjm.bean.ExhaustFanRealtimeData">
+        insert into exhaust_fan_realtime_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="logicId != null">
+                logic_id,
+            </if>
+            <if test="airVolume != null">
+                air_volume,
+            </if>
+            <if test="direction != null">
+                direction,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="logicId != null">
+                #{logicId,jdbcType=INTEGER},
+            </if>
+            <if test="airVolume != null">
+                #{airVolume,jdbcType=VARCHAR},
+            </if>
+            <if test="direction != null">
+                #{direction,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.sjm.bean.ExhaustFanRealtimeDataExample" resultType="java.lang.Long">
+        select count(*) from exhaust_fan_realtime_data
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update exhaust_fan_realtime_data
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.logicId != null">
+                logic_id = #{record.logicId,jdbcType=INTEGER},
+            </if>
+            <if test="record.airVolume != null">
+                air_volume = #{record.airVolume,jdbcType=VARCHAR},
+            </if>
+            <if test="record.direction != null">
+                direction = #{record.direction,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update exhaust_fan_realtime_data
+        set id = #{record.id,jdbcType=INTEGER},
+        logic_id = #{record.logicId,jdbcType=INTEGER},
+        air_volume = #{record.airVolume,jdbcType=VARCHAR},
+        direction = #{record.direction,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.sjm.bean.ExhaustFanRealtimeData">
+        update exhaust_fan_realtime_data
+        <set>
+            <if test="logicId != null">
+                logic_id = #{logicId,jdbcType=INTEGER},
+            </if>
+            <if test="airVolume != null">
+                air_volume = #{airVolume,jdbcType=VARCHAR},
+            </if>
+            <if test="direction != null">
+                direction = #{direction,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.sjm.bean.ExhaustFanRealtimeData">
+        update exhaust_fan_realtime_data
+        set logic_id = #{logicId,jdbcType=INTEGER},
+        air_volume = #{airVolume,jdbcType=VARCHAR},
+        direction = #{direction,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
